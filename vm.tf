@@ -32,5 +32,5 @@ module "k3s-worker" {
 
   worker_private_ssh_key = each.value.worker_private_ssh_key
 
-  depends_on = [hcloud_network_subnet.private_network_subnet, module.k3s-master[*].hcloud_server.master]
+  depends_on = [hcloud_network_subnet.private_network_subnet, module.k3s-master]
 }
