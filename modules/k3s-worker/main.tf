@@ -8,7 +8,7 @@ resource "hcloud_server" "worker" {
     ipv6_enabled = true
   }
   network {
-    network_id = hcloud_network.private_network.id
+    network_id = var.network.id
   }
   user_data = templatefile("${path.module}/cloud-init.yaml.tftpl", {
     ssh_authorized_keys    = var.ssh_authorized_keys,
