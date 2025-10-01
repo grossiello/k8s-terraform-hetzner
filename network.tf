@@ -4,9 +4,9 @@ resource "hcloud_network" "private_network" {
 }
 
 resource "hcloud_network_subnet" "private_network_subnet" {
-  for_each     = var.subnets[*]
-  type         = each.value.type
+  count        = length(var.subnets)
+  type         = var.subnets[count.index].type
   network_id   = hcloud_network.private_network.id
-  network_zone = each.value.network_zone
-  ip_range     = each.value.ip_range
+  network_zone = var.subnets[count.index].network_zone
+  ip_range     = var.subnets[count.index].ip_range
 }
