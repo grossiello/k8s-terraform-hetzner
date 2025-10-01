@@ -10,7 +10,7 @@ resource "hcloud_server" "worker" {
   network {
     network_id = var.network.id
   }
-  user_data = templatefile("${path.module}/cloud-init.yaml.tftpl", {
+  user_data = templatefile("${path.module}/data/vm/cloud-init.yaml.tftpl", {
     ssh_authorized_keys    = var.ssh_authorized_keys,
     worker_private_ssh_key = var.worker_private_ssh_key
   })
