@@ -13,6 +13,9 @@ module "k3s-master" {
 
   ssh_authorized_keys = each.value.ssh_authorized_keys
 
+  providers = {
+    hcloud = hcloud
+  }
   depends_on = [hcloud_network_subnet.private_network_subnet]
 }
 
@@ -32,5 +35,8 @@ module "k3s-worker" {
 
   worker_private_ssh_key = each.value.worker_private_ssh_key
 
+  providers = {
+    hcloud = hcloud
+  }
   depends_on = [hcloud_network_subnet.private_network_subnet, module.k3s-master]
 }
