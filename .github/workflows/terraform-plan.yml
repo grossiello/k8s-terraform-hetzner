@@ -23,7 +23,6 @@ jobs:
       - name: Terraform Format
         id: fmt
         run: terraform fmt -check
-        continue-on-error: true
 
       - name: Terraform Init
         id: init
@@ -36,10 +35,9 @@ jobs:
       - name: Terraform Plan
         id: plan
         run: terraform plan -no-color -input=false
-        continue-on-error: true
 
       - uses: actions/github-script@v7
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && '!cancelled()'
         env:
           PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
         with:
